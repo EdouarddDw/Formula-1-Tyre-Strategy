@@ -1,8 +1,7 @@
 # Formula-1-Tyre-Strategy
 S403011 Machine Learning Project: Formula 1 Tyre Strategy
 
-The data comes from the Kaggle competition
-[s-403011-ml-project-formula-1-tyre-strategy](https://www.kaggle.com/competitions/s-403011-ml-project-formula-1-tyre-strategy).
+The data comes from the Kaggle competition.
 It is **not** stored in this repo: `data.py` downloads it from Kaggle with your own API token
 and caches it on your machine.
 
