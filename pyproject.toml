@@ -1,0 +1,12 @@
+[project]
+name = "formula-1-tyre-strategy"
+version = "0.1.0"
+description = "S403011 Machine Learning Project: Formula 1 Tyre Strategy"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "kagglehub>=1.0.3",
+    "pandas>=3.0",
+    "pyarrow>=20.0",
+    "python-dotenv>=1.0",
+]
