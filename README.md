@@ -66,7 +66,7 @@ KAGGLE_API_TOKEN=your_kaggle_api_token_here
 ### 5. Check that it works
 
 ```bash
-uv run python data.py
+uv run python src.data.py
 ```
 
 The first run downloads the files (cached afterwards, under `~/.cache/kagglehub/`) and prints
