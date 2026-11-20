@@ -2,7 +2,7 @@
 S403011 Machine Learning Project: Formula 1 Tyre Strategy
 
 The data comes from the Kaggle competition.
-It is **not** stored in this repo: `data.py` downloads it from Kaggle with your own API token
+It is **not** stored in this repo: `src/data.py` downloads it from Kaggle with your own API token
 and caches it on your machine.
 
 ## Setup
@@ -31,7 +31,7 @@ uv sync
 ```
 
 This creates a `.venv/` folder with the right Python packages. You don't need to activate it:
-prefix commands with `uv run` (e.g. `uv run python data.py`). If you prefer, activate it
+prefix commands with `uv run` (e.g. `uv run python -m src.data`). If you prefer, activate it
 with `source .venv/bin/activate` (macOS/Linux) or `.venv\Scripts\activate` (Windows), and
 select `.venv` as the interpreter in VS Code / Jupyter.
 
@@ -66,7 +66,7 @@ KAGGLE_API_TOKEN=your_kaggle_api_token_here
 ### 5. Check that it works
 
 ```bash
-uv run python src.data.py
+uv run python -m src.data
 ```
 
 The first run downloads the files (cached afterwards, under `~/.cache/kagglehub/`) and prints
@@ -75,7 +75,7 @@ the shape of each dataset.
 ## Loading the data in your code
 
 ```python
-from data import load_data
+from src.data import load_data
 
 train, test, sample_submission = load_data()
 ```
@@ -83,7 +83,7 @@ train, test, sample_submission = load_data()
 Or load a single dataset:
 
 ```python
-from data import load_train, load_test, load_sample_submission
+from src.data import load_train, load_test, load_sample_submission
 
 train = load_train()
 ```

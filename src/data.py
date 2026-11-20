@@ -2,12 +2,12 @@
 
 Usage from any other .py file in the project:
 
-    from data import load_data
+    from src.data import load_data
     train, test, sample_submission = load_data()
 
 Or load a single dataset:
 
-    from data import load_train, load_test, load_sample_submission
+    from src.data import load_train, load_test, load_sample_submission
     train = load_train()
 """
 
