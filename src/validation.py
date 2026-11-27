@@ -69,11 +69,21 @@ def make_eval_rows(
     Drops cars with an NA target (not scored on Kaggle) and cars retired before the cut.
     With n_cuts > 1, repeats with different u; `cut_id` identifies the cut.
     """
-    race_df = add_next_compound(race_df, name=TARGET)
+    return cut_rows(add_next_compound(race_df, name=TARGET), rng, mode, n_cuts)
+
+
+def cut_rows(
+    df: pd.DataFrame, rng: np.random.Generator, mode: str = DEFAULT_MODE, n_cuts: int = 1
+) -> pd.DataFrame:
+    """Simulated cut rows (known target) of every race in df, which already has TARGET.
+
+    Also used to fit models on test-like rows of their training races.
+    """
     out = []
-    for cut_id, u in enumerate(rng.uniform(CUT_FRAC_MIN, CUT_FRAC_MAX, size=n_cuts)):
-        rows = last_visible_laps(race_df, u, mode)
-        out.append(rows[rows[TARGET].notna()].assign(cut_id=cut_id))
+    for _, race_df in df.groupby("race_id", sort=True):
+        for cut_id, u in enumerate(rng.uniform(CUT_FRAC_MIN, CUT_FRAC_MAX, size=n_cuts)):
+            rows = last_visible_laps(race_df, u, mode)
+            out.append(rows[rows[TARGET].notna()].assign(cut_id=cut_id))
     return pd.concat(out, ignore_index=True)
 
 

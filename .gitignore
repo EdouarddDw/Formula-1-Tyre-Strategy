@@ -227,3 +227,6 @@ eda_plots/
 
 #ds store
 .DS_Store
+
+# Run log is shared (overrides *.csv above)
+!results/results.csv
