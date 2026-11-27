@@ -1,0 +1,6 @@
+date,model,params,mode,folds,n_cuts,cv_logloss_mean,cv_logloss_std,accuracy,git_commit
+2026-11-27T17:11:38,prior,{},laps,5,5,1.46497,0.12895,0.3468,90703c2+dirty
+2026-11-27T17:12:09,prior,"{""fit_on"": ""all""}",laps,5,5,1.56303,0.13712,0.2244,90703c2+dirty
+2026-11-27T17:12:14,transition,"{""fit_on"": ""all""}",laps,5,5,1.4014,0.07202,0.4438,90703c2+dirty
+2026-11-27T17:12:52,transition,{},laps,5,5,1.28882,0.15588,0.4969,90703c2+dirty
+2026-11-27T17:13:31,transition,"{""alpha"": 5}",laps,5,5,1.26606,0.12314,0.4969,90703c2+dirty
