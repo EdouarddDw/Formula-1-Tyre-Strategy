@@ -14,25 +14,32 @@ CLASSES = ["SOFT", "MEDIUM", "HARD", "WET_OR_INTER", "NONE"]
 TARGET = "next_compound"  # train only; absent from test_laps
 
 # --- Identifiers -------------------------------------------------------------------
-RACE_KEYS = ["year", "round"]  # CV groups (equivalent to the `race_id` column, "2018_01")
-DRIVER_KEYS = RACE_KEYS + ["driver_code"]  # one car in one race
+RACE_KEYS = ["race_id"]  # CV groups, e.g. "2018_01"
+DRIVER_KEYS = ["race_id", "driver_code"]  # one car in one race
 
-# Submission id: f"{year}_{round:02d}_{driver_code}", e.g. "2018_02_ALO".
-# Checked: built this way, sample_submission ids are a subset of the test ids
-# (1740 of 1814; the 74 missing cars all retired before the cutoff).
-# sample_submission is sorted by id.
+# Submission id = race_id + "_" + driver_code, e.g. "2018_02_ALO".
+# Checked: sample_submission ids are a subset of the test ids (1740 of 1814; the 74
+# missing cars retired before the cut). sample_submission is sorted by id.
 ID_COL = "id"
-ID_FORMAT = "{year}_{round:02d}_{driver_code}"
+ID_FORMAT = "{race_id}_{driver_code}"
+
+
+def make_id(df):
+    """Submission id per row: race_id + "_" + driver_code."""
+    return df["race_id"] + "_" + df["driver_code"]
+
 
 # --- Scoring ------------------------------------------------------------------------
-# Scored cars: result_status "Finished" or "+n Lap"/"+n Laps" (n up to 15 seen in the data).
-# Use with `df["result_status"].str.match(FINISHED_STATUS_PATTERN)`.
-# Note: "Lapped" (1 car, 2026_09 SAI) is not matched, following the official rule.
-FINISHED_STATUS_PATTERN = r"^(Finished|\+\d+ Laps?)$"
+# Scored rows = target is not NA (official definition in src/target.py, which counts
+# "Finished", "+n Lap(s)" and "Lapped" as finished). No separate status pattern here.
 
-# --- Test-like lap window ----------------------------------------------------------
-# 5th and 95th percentiles of each scored driver's last observed lap_number in
-# test_laps (1740 ids from sample_submission). Full range 14-36, median 23.
+# --- Official test cut ---------------------------------------------------------------
+# Each test race is cut when the leader finishes a lap between 30% and 50% of the race,
+# fraction u ~ U(CUT_FRAC_MIN, CUT_FRAC_MAX) per race (see src/validation.py).
+CUT_FRAC_MIN, CUT_FRAC_MAX = 0.3, 0.5
+
+# Reference only (not used for the cut): 5th / 95th percentiles of the last observed
+# lap_number of the 1740 sample_submission cars in test_laps (range 14-36, median 23).
 CUTOFF_LAP_MIN = 15
 CUTOFF_LAP_MAX = 32
 

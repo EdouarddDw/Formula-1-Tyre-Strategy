@@ -225,8 +225,5 @@ __marimo__/
 # EDA output
 eda_plots/
 
-#claude code context file
-CLAUDE.md
-
 #ds store
 .DS_Store
